@@ -5,7 +5,18 @@ const gameboard = [
 ];
 
 function displayGameboard() {
-  gameboard.forEach((element) => console.log(element));
+  gameboard.forEach((row) => console.log(row));
 };
 
 displayGameboard();
+
+const players = {
+  player1: {
+    name: "Tony",
+    marker: "X"
+  },
+  player2: {
+    name: "Arnaud",
+    marker: "O"
+  }
+};
