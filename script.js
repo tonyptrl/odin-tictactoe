@@ -1,16 +1,24 @@
+// Gameboard
+
 const gameboard = (function() {
-  return [
+  const board = [
     ["1", "2", "3"],
     ["4", "5", "6"],
     ["7", "8", "9"]
   ];
+
+  return {
+    displayGameboard: function() {
+      board.forEach((row) => console.log(row));
+    },
+    getBoard: function() {
+      return board;
+    }
+  };
 })();
 
-function displayGameboard() {
-  gameboard.forEach((row) => console.log(row));
-};
 
-displayGameboard();
+// Players
 
 const players = (function() {
   return {
@@ -25,20 +33,26 @@ const players = (function() {
   };
 })();
 
+
+// GameController
+
 const gameController = (function() {
   const makeMove = (position, marker) => {
     let row = "";
     let column = "";
-    for (let i = 0; i < gameboard.length; i++) {
-      for (let j = 0; j < gameboard[i].length; j++) {
-        if (gameboard[i][j] === position.toString()) {
+
+    const board = gameboard.getBoard();
+
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        if (board[i][j] === position.toString()) {
           row = i;
           column = j;
         };
       };
     };
-    gameboard[row][column] = marker;
-    displayGameboard();
+    board[row][column] = marker;
+    gameboard.displayGameboard();
   };
 
   return {
@@ -46,5 +60,9 @@ const gameController = (function() {
   };
 })();
 
+
+// Actions
+
+gameboard.displayGameboard();
 gameController.makeMove("5", "O");
 gameController.makeMove("3", "X");
