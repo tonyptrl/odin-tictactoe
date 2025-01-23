@@ -1,3 +1,26 @@
+// Players
+
+const players = (function() {
+  let player1Name = "Tony"; //prompt(`Player 1 (Using "X") : What's your name?`);
+  let player2Name = "Arnaud"; //prompt(`Player 2 (Using "O") : What's your name?`);
+
+  let player1 = {
+      name: player1Name || "Player 1",
+      marker: "X",
+    };
+
+    let player2 = {
+      name: player2Name || "Player 2",
+      marker: "O",
+    };
+
+  return {
+    player1,
+    player2,
+  }
+})();
+
+
 // Gameboard
 
 const gameboard = (function() {
@@ -18,29 +41,6 @@ const gameboard = (function() {
 })();
 
 
-// Players
-
-const players = (function() {
-  let player1Input = "Tony"; //prompt(`Player 1 (Using "X") : What's your name?`);
-  let player2Input = "Arnaud"; //prompt(`Player 2 (Using "O") : What's your name?`);
-
-  let player1 = {
-      name: player1Input || "Player 1",
-      marker: "X",
-    };
-
-    let player2 = {
-      name: player2Input || "Player 2",
-      marker: "O",
-    };
-
-  return {
-    player1,
-    player2,
-  }
-})();
-
-
 // GameController
 
 const gameController = (function() {
@@ -55,9 +55,16 @@ const gameController = (function() {
         if (board[i][j] === position.toString()) {
           row = i;
           column = j;
+          break;
         };
       };
     };
+
+    if (row === null || column === null) {
+      console.log("Invalid position. Please choose a valid position.");
+      return;
+    };
+
     board[row][column] = marker;
     gameboard.displayGameboard();
   };
@@ -71,5 +78,7 @@ const gameController = (function() {
 // Actions
 
 gameboard.displayGameboard();
-gameController.makeMove("5", "O");
-gameController.makeMove("3", "X");
+console.log(`${players.player1.name}'s Turn`);
+gameController.makeMove("5", players.player1.marker);
+console.log(`${players.player2.name}'s Turn`);
+gameController.makeMove("5", players.player2.marker);
