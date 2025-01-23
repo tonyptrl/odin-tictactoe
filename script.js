@@ -21,16 +21,23 @@ const gameboard = (function() {
 // Players
 
 const players = (function() {
+  let player1Input = "Tony"; //prompt(`Player 1 (Using "X") : What's your name?`);
+  let player2Input = "Arnaud"; //prompt(`Player 2 (Using "O") : What's your name?`);
+
+  let player1 = {
+      name: player1Input || "Player 1",
+      marker: "X",
+    };
+
+    let player2 = {
+      name: player2Input || "Player 2",
+      marker: "O",
+    };
+
   return {
-    player1: {
-      name: "Tony",
-      marker: "X"
-    },
-    player2: {
-      name: "Arnaud",
-      marker: "O"
-    }
-  };
+    player1,
+    player2,
+  }
 })();
 
 
@@ -38,8 +45,8 @@ const players = (function() {
 
 const gameController = (function() {
   const makeMove = (position, marker) => {
-    let row = "";
-    let column = "";
+    let row = null;
+    let column = null;
 
     const board = gameboard.getBoard();
 
