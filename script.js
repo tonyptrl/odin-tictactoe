@@ -44,6 +44,33 @@ const gameboard = (function() {
 // GameController
 
 const gameController = (function() {
+
+  let player1Turn = 1;
+  let player2Turn = 0;
+
+  const startGame = (function() {
+    //console.log(`${players.player1.name}'s Turn`);
+  });
+
+  const handleTurn = (function() {
+    if (player1Turn === 1) {
+      console.log(`${players.player1.name}'s Turn`);
+      let player1Move = prompt("What's your move?");
+      gameController.makeMove(player1Move, players.player1.marker);
+      player1Turn = 0;
+      player2Turn = 1;
+      handleTurn();
+    } else {
+        console.log(`${players.player2.name}'s Turn`);
+        let player2Move = prompt("What's your move?");
+        gameController.makeMove(player2Move, players.player2.marker);
+        player2Turn = 0;
+        player1Turn = 1;
+        handleTurn();
+    }
+  });
+
+
   const makeMove = (position, marker) => {
     let row = null;
     let column = null;
@@ -70,6 +97,8 @@ const gameController = (function() {
   };
 
   return {
+    startGame,
+    handleTurn,
     makeMove,
   };
 })();
@@ -78,7 +107,8 @@ const gameController = (function() {
 // Actions
 
 gameboard.displayGameboard();
-console.log(`${players.player1.name}'s Turn`);
-gameController.makeMove("5", players.player1.marker);
-console.log(`${players.player2.name}'s Turn`);
-gameController.makeMove("5", players.player2.marker);
+gameController.startGame();
+gameController.handleTurn();
+//gameController.makeMove("5", players.player1.marker);
+//console.log(`${players.player2.name}'s Turn`);
+//gameController.makeMove("5", players.player2.marker);
