@@ -107,8 +107,28 @@ const gameController = (function() {
     && board[2][0] === player.marker) {
       console.log(`${player.name} win!`);
     } else {
-      handleTurn();
+      checkDraw();
     };
+  });
+
+  const checkDraw = (function() {
+    let isDraw = true;
+
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        if (board[i][j] !== "X" && board[i][j] !== "O") {
+          isDraw = false;
+          break;
+        }
+      }
+      if (!isDraw) break;
+    }
+
+    if (isDraw) {
+      console.log("It's a draw!");
+    } else {
+      handleTurn();
+    }
   });
 
   const makeMove = (position, marker) => {
@@ -138,6 +158,7 @@ const gameController = (function() {
     startGame,
     handleTurn,
     checkWin,
+    checkDraw,
     makeMove,
   };
 })();
