@@ -54,6 +54,29 @@ const gameController = (function() {
     //console.log(`${players.player1.name}'s Turn`);
   });
 
+  const makeMove = (position, marker) => {
+    let row = null;
+    let column = null;
+
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        if (board[i][j] === position.toString()) {
+          row = i;
+          column = j;
+          break;
+        };
+      };
+    };
+
+    if (row === null || column === null) {
+      console.log("Invalid position. Please choose a valid position.");
+      return;
+    };
+
+    board[row][column] = marker;
+    gameboard.displayGameboard();
+  };
+
   const handleTurn = (function() {
     if (player1Turn === 1) {
       console.log(`${players.player1.name}'s Turn`);
@@ -130,29 +153,6 @@ const gameController = (function() {
       handleTurn();
     }
   });
-
-  const makeMove = (position, marker) => {
-    let row = null;
-    let column = null;
-
-    for (let i = 0; i < board.length; i++) {
-      for (let j = 0; j < board[i].length; j++) {
-        if (board[i][j] === position.toString()) {
-          row = i;
-          column = j;
-          break;
-        };
-      };
-    };
-
-    if (row === null || column === null) {
-      console.log("Invalid position. Please choose a valid position.");
-      return;
-    };
-
-    board[row][column] = marker;
-    gameboard.displayGameboard();
-  };
 
   return {
     startGame,
