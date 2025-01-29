@@ -57,6 +57,7 @@ const gameController = (function() {
   let player2Turn = 0;
 
   const startGame = (function() {
+    gameboard.displayGameboard();
     console.log(`Game started between ${players.player1.name} and ${players.player2.name}!`)
     console.log(`${players.player1.name}'s Turn (X)`);
     const player1Move = prompt("What's your move?");
@@ -182,7 +183,6 @@ const gameController = (function() {
     player1Turn = 1;
     player2Turn = 0;
 
-    gameboard.displayGameboard();
     startGame();
   });
 
@@ -199,5 +199,4 @@ const gameController = (function() {
 
 // Actions
 
-gameboard.displayGameboard();
 gameController.startGame();
