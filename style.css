@@ -46,8 +46,11 @@ input {
 }
 
 .infos {
+  display: flex;
   height: 100px;
   background-color: bisque;
+  align-items: center;
+  justify-content: center;
 }
 
 .gameboard {

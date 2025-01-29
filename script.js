@@ -72,9 +72,11 @@ const gameController = (function() {
 
   const resetGameBtn = document.querySelector(".reset-game-button");
 
+  let infosInput = document.querySelector(".js-infos");
+
   const startGame = (function() {
     gameboard.displayGameboard();
-    console.log(`Game started between ${players.player1.name} and ${players.player2.name}!`)
+    infosInput.textContent = `Game started between ${players.player1.name} and ${players.player2.name}!`;
     console.log(`${players.player1.name}'s Turn (X)`);
     const player1Move = prompt("What's your move?");
     gameController.makeMove(player1Move, players.player1.marker);
