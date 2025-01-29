@@ -24,7 +24,7 @@ const players = (function() {
 // Gameboard
 
 const gameboard = (function() {
-  const board = [
+  let board = [
     ["1", "2", "3"],
     ["4", "5", "6"],
     ["7", "8", "9"]
@@ -37,6 +37,13 @@ const gameboard = (function() {
     getBoard: function() {
       return board;
     },
+    resetBoard: function() {
+      board = [
+        ["1", "2", "3"],
+        ["4", "5", "6"],
+        ["7", "8", "9"]
+      ];
+    }
   };
 })();
 
@@ -44,7 +51,7 @@ const gameboard = (function() {
 // GameController
 
 const gameController = (function() {
-  const board = gameboard.getBoard();
+  let board = gameboard.getBoard();
 
   let player1Turn = 1;
   let player2Turn = 0;
@@ -105,34 +112,42 @@ const gameController = (function() {
     && board[0][1] === player.marker
     && board[0][2] === player.marker) {
       console.log(`${player.name} win!`);
+      restartGame();
     } else if(board[1][0] === player.marker
     && board[1][1] === player.marker
     && board[1][2] === player.marker) {
       console.log(`${player.name} win!`);
+      restartGame();
     } else if(board[2][0] === player.marker
     && board[2][1] === player.marker
     && board[2][2] === player.marker) {
       console.log(`${player.name} win!`);
+      restartGame();
     } else if(board[0][0] === player.marker
     && board[1][0] === player.marker
     && board[2][0] === player.marker) {
       console.log(`${player.name} win!`);
+      restartGame();
     } else if(board[0][1] === player.marker
     && board[1][1] === player.marker
     && board[2][1] === player.marker) {
       console.log(`${player.name} win!`);
+      restartGame();
     } else if(board[0][2] === player.marker
     && board[1][2] === player.marker
     && board[2][2] === player.marker) {
       console.log(`${player.name} win!`);
+      restartGame();
     } else if(board[0][0] === player.marker
     && board[1][1] === player.marker
     && board[2][2] === player.marker) {
       console.log(`${player.name} win!`);
+      restartGame();
     } else if(board[0][2] === player.marker
     && board[1][1] === player.marker
     && board[2][0] === player.marker) {
       console.log(`${player.name} win!`);
+      restartGame();
     } else {
       checkDraw();
     };
@@ -153,9 +168,22 @@ const gameController = (function() {
 
     if (isDraw) {
       console.log("It's a draw!");
+      restartGame();
     } else {
       handleTurn();
     }
+  });
+
+  const restartGame = (function() {
+    console.log("Restarting the game...");
+
+    gameboard.resetBoard();
+    board = gameboard.getBoard();
+    player1Turn = 1;
+    player2Turn = 0;
+
+    gameboard.displayGameboard();
+    startGame();
   });
 
   return {
@@ -164,6 +192,7 @@ const gameController = (function() {
     checkWin,
     checkDraw,
     makeMove,
+    restartGame,
   };
 })();
 
