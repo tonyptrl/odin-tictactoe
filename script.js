@@ -1,8 +1,12 @@
 // Players
 
 const players = (function() {
-  let player1Name = "Tony"; //prompt(`Player 1 (Using "X") : What's your name?`);
-  let player2Name = "Arnaud"; //prompt(`Player 2 (Using "O") : What's your name?`);
+  let player1Name = "";
+  let player2Name = "";
+  const player1Btn = document.querySelector(".js-submit-button-1");
+  const player2Btn = document.querySelector(".js-submit-button-2");
+  const player1Input = document.querySelector(".input-player-1");
+  const player2Input = document.querySelector(".input-player-2");
 
   let player1 = {
       name: player1Name || "Player 1",
@@ -13,6 +17,16 @@ const players = (function() {
       name: player2Name || "Player 2",
       marker: "O",
     };
+
+    player1Btn.addEventListener('click', () => {
+      player1Name = player1Input.value;
+      player1Input.value = "";
+    });
+
+    player2Btn.addEventListener('click', () => {
+      player2Name = player2Input.value;
+      player2Input.value = "";
+    });
 
   return {
     player1,
@@ -55,6 +69,8 @@ const gameController = (function() {
 
   let player1Turn = 1;
   let player2Turn = 0;
+
+  const resetGameBtn = document.querySelector(".reset-game-button");
 
   const startGame = (function() {
     gameboard.displayGameboard();
@@ -184,6 +200,10 @@ const gameController = (function() {
     player2Turn = 0;
 
     startGame();
+  });
+
+  resetGameBtn.addEventListener("click", () => {
+    restartGame();
   });
 
   return {
