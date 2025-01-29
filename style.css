@@ -1,0 +1,55 @@
+.container {
+  width: 650px;
+  height: 650px;
+  background-color: aqua;
+  margin: auto;
+}
+
+.settings {
+  height: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 10px;
+}
+
+.settings-player-1, .settings-player-2 {
+  align-self: center;
+  text-align: center;
+}
+
+.input-box {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+input {
+  height: 20px;
+}
+
+.submit-button {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border: none;
+}
+
+.settings-reset-button {
+  margin: auto;
+}
+
+.reset-game-button {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+}
+
+.infos {
+  height: 100px;
+  background-color: bisque;
+}
+
+.gameboard {
+ background-color: blue;
+}
