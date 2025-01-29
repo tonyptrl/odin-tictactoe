@@ -201,7 +201,3 @@ const gameController = (function() {
 
 gameboard.displayGameboard();
 gameController.startGame();
-gameController.handleTurn();
-//gameController.makeMove("5", players.player1.marker);
-//console.log(`${players.player2.name}'s Turn`);
-//gameController.makeMove("5", players.player2.marker);
