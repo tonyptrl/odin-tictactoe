@@ -75,7 +75,7 @@ const gameController = (function() {
 
     if (row === null || column === null) {
       console.log("Invalid position. Please choose a valid position.");
-      return;
+      handleTurn();
     };
 
     board[row][column] = marker;
