@@ -72,7 +72,7 @@ const gameController = (function() {
 
   const resetGameBtn = document.querySelector(".reset-game-button");
 
-  let infosInput = document.querySelector(".js-infos");
+  const infosInput = document.querySelector(".js-infos");
 
   const startGame = (function() {
     gameboard.displayGameboard();

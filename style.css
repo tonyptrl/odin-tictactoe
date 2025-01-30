@@ -1,7 +1,6 @@
 .container {
   width: 650px;
   height: 650px;
-  background-color: aqua;
   margin: auto;
 }
 
@@ -48,11 +47,24 @@ input {
 .infos {
   display: flex;
   height: 100px;
-  background-color: bisque;
   align-items: center;
   justify-content: center;
 }
 
 .gameboard {
- background-color: blue;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  border: 2px solid black;
+  width: 350px;
+  height: 350px;
+  margin: auto;
+}
+
+.gameboard div {
+  cursor: pointer;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
