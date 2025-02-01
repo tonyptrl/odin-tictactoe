@@ -3,35 +3,59 @@
 const players = (function() {
   let player1Name = "";
   let player2Name = "";
-  const player1Btn = document.querySelector(".js-submit-button-1");
-  const player2Btn = document.querySelector(".js-submit-button-2");
-  const player1Input = document.querySelector(".input-player-1");
-  const player2Input = document.querySelector(".input-player-2");
+  const player1Btn = document.querySelector(".js-submit-1");
+  const player2Btn = document.querySelector(".js-submit-2");
+  const player1Input = document.querySelector(".js-player-1-input");
+  const player2Input = document.querySelector(".js-player-2-input");
+  const startBtn = document.querySelector(".js-game-start-btn");
+
 
   let player1 = {
-      name: player1Name || "Player 1",
-      marker: "X",
-    };
+    name: "",
+    marker: "X",
+  };
+  
+  let player2 = {
+    name: "",
+    marker: "O",
+  };
 
-    let player2 = {
-      name: player2Name || "Player 2",
-      marker: "O",
-    };
 
-    player1Btn.addEventListener('click', () => {
-      player1Name = player1Input.value;
-      player1Input.value = "";
-    });
-
-    player2Btn.addEventListener('click', () => {
-      player2Name = player2Input.value;
-      player2Input.value = "";
-    });
-
-  return {
-    player1,
-    player2,
+  function checkAndStartGame() {
+    startBtn.addEventListener('click', () => {
+      if (player1.name !== "" && player2.name !== "") {
+        document.querySelector(".js-gameboard").style.display = "grid";
+        document.querySelector(".js-start-menu").style.display = "none";
+        gameController.startGame();
+      }
+    })
   }
+
+
+  player1Btn.addEventListener('click', () => {
+    if (player1Input.value !== "") {
+      player1.name = player1Input.value;
+      player1Input.value = "";
+      document.querySelector(".js-player-1 p").textContent = `${player1.name} (using "X")`;
+    }
+    checkAndStartGame();
+  });
+  
+  player2Btn.addEventListener('click', () => {
+    if (player2Input.value !== "") {
+      player2.name = player2Input.value;
+      player2Input.value = "";
+      document.querySelector(".js-player-2 p").textContent = `${player2.name} (using "O")`;
+    }
+    checkAndStartGame();
+  });
+  
+
+return {
+  checkAndStartGame,
+  player1,
+  player2,
+}
 })();
 
 
@@ -64,12 +88,15 @@ const gameboard = (function() {
 const gameController = (function() {
   let board = gameboard.getBoard();
   let player1Turn = true;
+  let gameOver = false;
 
-  const resetGameBtn = document.querySelector(".reset-game-button");
+  const resetGameBtn = document.querySelector(".js-game-reset-btn");
   const infosInput = document.querySelector(".js-infos");
 
   const startGame = (function() {
-    infosInput.textContent = `Game started between ${players.player1.name} and ${players.player2.name}! ${players.player1.name}'s Turn (X)`;
+    document.querySelector(".js-game-reset-container").style.display = "flex";
+    document.querySelector(".js-game-reset-btn").style.display = "flex";
+    infosInput.textContent = `game started between ${players.player1.name} and ${players.player2.name}! ${players.player1.name}'s turn (X)`;
   });
 
   const getCurrentPlayer = function() {
@@ -77,6 +104,8 @@ const gameController = (function() {
   };
 
   const makeMove = (position) => {
+    if (gameOver) return;
+
     let row = null;
     let column = null;
 
@@ -91,7 +120,7 @@ const gameController = (function() {
     };
 
     if (row === null || column === null) {
-      infosInput.textContent = "Invalid position. Please choose a valid position.";
+      infosInput.textContent = "invalid position. Please choose a valid position.";
       return;
     };
 
@@ -101,16 +130,18 @@ const gameController = (function() {
 
     if (checkWin(currentPlayer)) {
       infosInput.textContent = `${currentPlayer.name} wins!`;
+      gameOver = true;
       return;
     }
 
     if (checkDraw()) {
-      infosInput.textContent = "It's a draw!";
+      infosInput.textContent = "it's a draw!";
+      gameOver = true;
       return;
     }
 
     player1Turn = !player1Turn;
-    infosInput.textContent = `${getCurrentPlayer().name}'s Turn (${getCurrentPlayer().marker})`;
+    infosInput.textContent = `${getCurrentPlayer().name}'s turn (${getCurrentPlayer().marker})`;
   };
 
   const checkWin = function(player) {
@@ -139,7 +170,8 @@ const gameController = (function() {
     gameboard.resetBoard();
     board = gameboard.getBoard();
     player1Turn = true;
-    document.querySelectorAll(".gameboard div").forEach(cell => cell.textContent = "");
+    gameOver = false;
+    document.querySelectorAll(".js-gameboard div").forEach(cell => cell.textContent = "");
     startGame();
   };
 
@@ -152,7 +184,7 @@ const gameController = (function() {
 })();
 
 (function() {
-  const cells = document.querySelectorAll(".gameboard div");
+  const cells = document.querySelectorAll(".js-gameboard div");
 
   cells.forEach((cell, index) => {
     cell.addEventListener("click", () => {
@@ -160,7 +192,3 @@ const gameController = (function() {
     });
   });
 })();
-
-
-// Starting the game
-gameController.startGame();
